@@ -1,0 +1,35 @@
+<!-- //templates/home.html -->
+{% extends 'base.html' %}
+{% block title %}Home {% endblock %}
+ 
+ 
+{% block content %}
+<form method="GET">
+    {% csrf_token %}
+    <select name="stock_name" id="stock_name">
+        <option value="TSLA">TSLA</option>
+        <option value="AAPL">AAPL</option>
+        <option value="GOOG">GOOG</option>
+        <option value="C">C</option>
+        <option value="INTC">INTC</option>
+        <option value="HOG">HOG</option>
+    </select>
+    <input type="datetime-local" name="start_date">
+    <input type="datetime-local" name="end_date">
+    <button type="submit">Submit</button>
+  </form>
+ <div id='myDiv'><!-- Plotly chart will be drawn inside this DIV --></div>
+  <script>
+    var x_data = {{x_data|safe}}
+    var y_data = {{y_data|safe}}
+    var data = [
+  {
+    x: x_data,
+    y: y_data,
+    type: 'scatter'
+  }
+];
+
+Plotly.newPlot('myDiv', data);
+  </script>
+{% endblock %}
